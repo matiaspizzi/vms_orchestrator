@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { EndpointModule } from './endpoint/endpoint.module';
+import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { EndpointModule } from './endpoint/endpoint.module';
     }),
     UsersModule,
     EndpointModule,
+    TaskModule,
   ],
   controllers: [AppController],
   providers: [AppService],
