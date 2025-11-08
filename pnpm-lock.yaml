@@ -8,6 +8,8 @@ specifiers:
   '@nestjs/common': ^11.0.1
   '@nestjs/config': ^4.0.2
   '@nestjs/core': ^11.0.1
+  '@nestjs/mapped-types': '*'
+  '@nestjs/passport': github:nestjs/passport
   '@nestjs/platform-express': ^11.0.1
   '@nestjs/schematics': ^11.0.0
   '@nestjs/testing': ^11.0.1
@@ -43,6 +45,8 @@ dependencies:
   '@nestjs/common': 11.1.8_573fcd10c8990b8a15b5d10f9ea1abee
   '@nestjs/config': 4.0.2_@nestjs+common@11.1.8+rxjs@7.8.2
   '@nestjs/core': 11.1.8_961116e61e1c7978e995ebf3d7edd0d4
+  '@nestjs/mapped-types': 2.1.0_2a32cd37395822c0da406b33497eb962
+  '@nestjs/passport': github.com/nestjs/passport/b7272ec36ce919836037167b2c3e0d044950a486_@nestjs+common@11.1.8
   '@nestjs/platform-express': 11.1.8_6cccd938e2a94cb0c7cc5f53b01cce3e
   '@nestjs/typeorm': 11.0.0_ffa0c2c4e9936593d1afe2a779ae0ce7
   bullmq: 5.63.0
@@ -1412,6 +1416,23 @@ packages:
       rxjs: 7.8.2
       tslib: 2.8.1
       uid: 2.0.2
+    dev: false
+
+  /@nestjs/mapped-types/2.1.0_2a32cd37395822c0da406b33497eb962:
+    resolution: {integrity: sha512-W+n+rM69XsFdwORF11UqJahn4J3xi4g/ZEOlJNL6KoW5ygWSmBB2p0S2BZ4FQeS/NDH72e6xIcu35SfJnE8bXw==}
+    peerDependencies:
+      '@nestjs/common': ^10.0.0 || ^11.0.0
+      class-transformer: ^0.4.0 || ^0.5.0
+      class-validator: ^0.13.0 || ^0.14.0
+      reflect-metadata: ^0.1.12 || ^0.2.0
+    peerDependenciesMeta:
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
+    dependencies:
+      '@nestjs/common': 11.1.8_573fcd10c8990b8a15b5d10f9ea1abee
+      reflect-metadata: 0.2.2
     dev: false
 
   /@nestjs/platform-express/11.1.8_6cccd938e2a94cb0c7cc5f53b01cce3e:
@@ -6120,3 +6141,17 @@ packages:
     resolution: {integrity: sha512-U/PBtDf35ff0D8X8D0jfdzHYEPFxAI7jJlxZXwCSez5M3190m+QobIfh+sWDWSHMCWWJN2AWamkegn6vr6YBTw==}
     engines: {node: '>=18'}
     dev: true
+
+  github.com/nestjs/passport/b7272ec36ce919836037167b2c3e0d044950a486_@nestjs+common@11.1.8:
+    resolution: {tarball: https://codeload.github.com/nestjs/passport/tar.gz/b7272ec36ce919836037167b2c3e0d044950a486}
+    id: github.com/nestjs/passport/b7272ec36ce919836037167b2c3e0d044950a486
+    name: '@nestjs/passport'
+    version: 11.0.5
+    prepare: true
+    requiresBuild: true
+    peerDependencies:
+      '@nestjs/common': ^10.0.0 || ^11.0.0
+      passport: ^0.5.0 || ^0.6.0 || ^0.7.0
+    dependencies:
+      '@nestjs/common': 11.1.8_573fcd10c8990b8a15b5d10f9ea1abee
+    dev: false
