@@ -18,8 +18,8 @@ export class UsersService {
     const password_hash = await bcrypt.hash(createUserDto.password, salt);
 
     const newUser = this.usersRepository.create({
-      email: createUserDto.email,
-      password_hash,
+      ...createUserDto,
+      password: password_hash,
     });
 
     return this.usersRepository.save(newUser);
@@ -29,38 +29,42 @@ export class UsersService {
     email: string,
     pass: string,
   ): Promise<Omit<User, 'password_hash'> | null> {
-    const user = await this.usersRepository
-      .createQueryBuilder('user')
-      .addSelect('user.password_hash')
-      .where('user.email = :email', { email })
-      .getOne();
+    let user: User | null;
+    if (email) {
+      user = await this.findOneByEmail(email);
+    } else {
+      return null;
+    }
 
     if (!user) {
       return null;
     }
 
-    const isMatch = await bcrypt.compare(pass, user.password_hash);
+    const isMatch = await bcrypt.compare(pass, user.password);
 
     if (isMatch) {
-      const { password_hash, ...result } = user;
-      return result;
+      return user;
     }
     return null;
   }
 
-  findOne(id: number): Promise<User | null> {
+  findOneById(id?: number): Promise<User | null> {
     return this.usersRepository.findOneBy({ id });
   }
 
+  findOneByEmail(email?: string): Promise<User | null> {
+    return this.usersRepository.findOneBy({ email });
+  }
+
   findAll() {
-    return `This action returns all users`;
+    return this.usersRepository.find();
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    return this.usersRepository.update(id, updateUserDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.usersRepository.delete(id);
   }
 }
