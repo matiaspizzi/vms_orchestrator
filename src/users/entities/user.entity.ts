@@ -1,19 +1,37 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Length, IsEmail } from 'class-validator';
+
+export enum UserRole {
+  SUPERADMIN = 'SUPERADMIN',
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true, nullable: false })
-  username: string;
+  @Column({ nullable: false })
+  @Length(2, 20)
+  name: string;
+
+  @Column({ nullable: false })
+  @Length(2, 20)
+  surname: string;
 
   @Column({ unique: true, nullable: false })
+  @IsEmail()
   email: string;
 
-  @Column({ select: false, nullable: false })
+  @Column({ nullable: false })
+  @Length(6, 20)
   password: string;
 
-  @Column({ default: 'ADMIN', nullable: false })
-  role: string;
+  @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.USER,
+  })
+  role: UserRole;
 }

@@ -32,10 +32,7 @@ export class UsersService {
     return this.usersRepository.save(newUser);
   }
 
-  async validateUser(
-    email: string,
-    pass: string,
-  ): Promise<Omit<User, 'password_hash'> | null> {
+  async validateUser(email: string, pass: string): Promise<User | null> {
     let user: User | null;
     if (email) {
       user = await this.findOneByEmail(email);
@@ -59,7 +56,7 @@ export class UsersService {
     return this.usersRepository.findOneBy({ id });
   }
 
-  findOneByEmail(email?: string): Promise<User | null> {
+  findOneByEmail(email: string): Promise<User | null> {
     return this.usersRepository.findOneBy({ email });
   }
 

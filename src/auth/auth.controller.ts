@@ -1,4 +1,4 @@
-import { Controller, Request, Post, Get, Body } from '@nestjs/common';
+import { Controller, Request, Post, Body } from '@nestjs/common';
 import { Public } from './decorators/public.decorator';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
@@ -10,22 +10,22 @@ export class AuthController {
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
-  ) { }
+  ) {}
 
   @Public()
   @Post('signup')
-  async signup(@Request() req, @Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  async signup(@Request() _req, @Body() createUserDto: CreateUserDto) {
+    const user = await this.usersService.create(createUserDto);
+    const access_token = await this.authService.login({
+      email: createUserDto.email,
+      password: createUserDto.password,
+    });
+    return { user, ...access_token };
   }
 
   @Public()
   @Post('login')
-  login(@Request() req, @Body() loginDto: LoginDto) {
+  login(@Request() _req, @Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
-  }
-
-  @Post('logout')
-  async logout(@Request() req) {
-    return this.authService.logout(req.user);
   }
 }
